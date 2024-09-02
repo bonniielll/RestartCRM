@@ -17,7 +17,7 @@ templates = Jinja2Templates(directory=templates_abs_file_path)
 
 @router.get('/clients')
 async def clients_base(request: Request):
-    clients_data = ClientsDAO.find_all()
+    clients_data = await ClientsDAO.find_all()
     print(clients_data)
     return templates.TemplateResponse(request=request, name='base.html')
 
