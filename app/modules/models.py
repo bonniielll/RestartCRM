@@ -8,7 +8,6 @@ from sqlalchemy import ForeignKey
 
 class Clients(Base):
     id: Mapped[int_pk]
-    Client: Mapped[List["NewTrading", "ComissionTrading", "ScrapTrading", "Expertise"]] = relationship(back_populates='client')
     phone_number: Mapped[str_uniq]
     names: Mapped[str]
     count_interactions: Mapped[int] = mapped_column(server_default=text('0'))

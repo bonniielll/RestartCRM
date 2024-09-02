@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.users.router import router as router_users
+from app.modules.router import router as router_modules
 import os
 
 
@@ -23,3 +24,4 @@ async def home_page(request: Request):
 
 
 app.include_router(router_users)
+app.include_router(router_modules)

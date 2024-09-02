@@ -1,11 +1,110 @@
-<html>
-<head>
-    <title>Restart CRM</title>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Restart Holding | CRM </title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-</head>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
 <body>
-    <h1><a href="/auth">232232</a></h1>
-    <h1><a href="/auth/register">Register</a></h1>
-    <h1><a href="/auth/login">Login</a></h1>
+  <div class="sidebar close">
+    <ul class="nav-links">
+        <li>
+            <div class="iocn-link">
+              <a href="">
+                <i class='bx bx-collection' ></i>
+                <span class="link_name">Добавление</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="/">Добавление</a></li>
+              <li><a href="/clientadd">Добавление клиентов</a></li>
+              <li><a href="/newakb">Продажа новых АКБ</a></li>
+              <li><a href="/comissionakb">Продажа комиссионных АКБ</a></li>
+              <li><a href="/scrap">Перемещения Лома</a></li>
+              <li><a href="/expertisenew">Экспертиза</a></li>
+            </ul>
+          </li>
+      <li>
+        <a href="/clients">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Клиенты</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Клиенты</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/newt">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Продажа новых</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Продажа новых</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/comt">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Продажа комиссионных</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Продажа комиссионных</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/scraptrade">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Перемещение Лома</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Перемещение Лома</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/expertise">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Экспертиза</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Экспертиза</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-cog' ></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Setting</a></li>
+        </ul>
+      </li>
+</ul>
+  </div>
+  <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+    </div>
+    <div class="content">{% block content %}{% endblock %}</div>
+  </section>
+  
+  <div class="one"></div>
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
 </body>
 </html>
