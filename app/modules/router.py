@@ -29,15 +29,15 @@ async def new_trading(request: Request):
 
 @router.get('/comt')
 async def comission_trading(request: Request):
-    return templates.TemplateResponse(request=request, name='base.html')
+    return templates.TemplateResponse(request=request, name='trading.html')
 
 
 @router.get('/scraptrade')
 async def scrap_trading(request: Request):
-    return templates.TemplateResponse(request=request, name='base.html')
+    return templates.TemplateResponse(request=request, name='trading.html')
 
 
 @router.get('/expertise')
 async def expertise(request: Request):
-    return templates.TemplateResponse(request=request, name='base.html')
+    return templates.TemplateResponse(request=request, name='trading.html')
 
