@@ -26,14 +26,14 @@ async def clients_base(request: Request):
         columns = list()
         for row in keys:
             date = getattr(clients_data[n], row)
-            #try:
-                #date = date.strftime('%d.%m.%Y %Hч:%Mм')
-            #except:
-            #    print('223223')
-             #   columns.append(getattr(clients_data[n], row))
-            #else:
-             #   print('asdadsasdads')
-            columns.append(date)
+            try:
+                date = date.strftime('%d.%m.%Y %Hч:%Mм')
+            except:
+                print('223223')
+                columns.append(getattr(clients_data[n], row))
+            else:
+                print('asdadsasdads')
+                columns.append(date)
         data.append(columns)
     return templates.TemplateResponse(request=request, name='trading.html', context={"data": data, "column_names": column_names})
 
