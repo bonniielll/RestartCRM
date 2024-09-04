@@ -26,7 +26,7 @@ async def clients_base(request: Request):
             columns.update({row: getattr(clients_data[n], row)})
         data.append(columns)
     print(data)
-    return templates.TemplateResponse(request=request, name='base.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={"data": data})
 
 
 @router.get('/newt')
@@ -40,25 +40,25 @@ async def new_trading(request: Request):
             columns.update({row: getattr(newtrading_data[n], row)})
         data.append(columns)
     print(data)
-    return templates.TemplateResponse(request=request, name='trading.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={"data": data})
 
 
 @router.get('/comt')
 async def comission_trading(request: Request):
-    return templates.TemplateResponse(request=request, name='trading.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={})
 
 
 @router.get('/scraptrade')
 async def scrap_trading(request: Request):
-    return templates.TemplateResponse(request=request, name='trading.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={})
 
 
 @router.get('/expertise')
 async def expertise(request: Request):
-    return templates.TemplateResponse(request=request, name='trading.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={})
 
 
 @router.get('/service')
 async def service(request: Request):
-    return templates.TemplateResponse(request=request, name='trading.html')
+    return templates.TemplateResponse(request=request, name='trading.html', context={})
 
