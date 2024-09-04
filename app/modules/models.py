@@ -10,6 +10,7 @@ class Clients(Base):
     id: Mapped[int_pk]
     phone_number: Mapped[str_uniq]
     names: Mapped[str]
+    comment: Mapped[str]
     count_interactions: Mapped[int] = mapped_column(server_default=text('0'))
     first_interaction: Mapped[created_at]
     last_interaction: Mapped[updated_at]
@@ -19,6 +20,12 @@ class Clients(Base):
 
 class NewTrading(Base):
     id: Mapped[int_pk]
+    client_number: Mapped[str]
+    akb: Mapped[str]
+    method: Mapped[str]
+    scrap_akb: Mapped[str]
+    sum: Mapped[str]
+
 
 
 class ComissionTrading(Base):
@@ -30,4 +37,8 @@ class ScrapTrading(Base):
 
 
 class Expertise(Base):
+    id: Mapped[int_pk]
+
+
+class Service(Base):
     id: Mapped[int_pk]
