@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionDAO, ScrapDAO, ExpertiseDAO, ServiceDAO
 import app.modules.models as BaseModels
 import os
+from time import strftime
 
 
 script_dir = os.path.dirname(__file__)
@@ -20,13 +21,20 @@ async def clients_base(request: Request):
     clients_data = await ClientsDAO.find_all()
     keys = BaseModels.Clients.__table__.columns.keys()
     data = list()
+    column_names = ['Номер телефона', 'ФИО', 'Комментарий', 'Количество взаимодействий',
+                    'Первое взаимодействие', 'Последнее взаимодействие', 'Сумма прибыли', 'Сумма выплат']
     for n, i in enumerate(clients_data):
-        columns = dict()
+        columns = list()
         for row in keys:
-            columns.update({row: getattr(clients_data[n], row)})
+            date = getattr(clients_data[n], row)
+            try:
+                date = date.strftime('%d.%m.%Y %Hч:%Mм')
+            except:
+                columns.append(getattr(clients_data[n], row))
+            finally:
+                columns.append(date)
         data.append(columns)
-    print(data)
-    return templates.TemplateResponse(request=request, name='trading.html', context={"data": data})
+    return templates.TemplateResponse(request=request, name='trading.html', context={"data": data, "column_names": column_names})
 
 
 @router.get('/newt')
