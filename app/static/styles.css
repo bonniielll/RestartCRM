@@ -203,8 +203,7 @@
 }
 
 .content{
-  position: flex;
-  background-color: #f0b318;
+  background-color: #c48d02;
   height: 100%;
   margin: 0 auto;
 }
@@ -217,6 +216,11 @@
   align-items: center;
 }
 
+#table_wrapper{
+  background-color: #c7b302 !important;
+  border: solid;
+  border: 2px inherit black;
+}
 
 @media (max-width: 420px) {
   .sidebar.close .nav-links li .sub-menu{

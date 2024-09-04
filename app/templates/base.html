@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title> Restart Holding | CRM </title>
-    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     {% block cssdatatable %}{% endblock %}
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
@@ -82,8 +82,7 @@
     </div>
     <div class="content">{% block content %}{% endblock %}</div>
   </section>
-  
-  <div class="one"></div>
+
   <script>
   let arrow = document.querySelectorAll(".arrow");
   for (var i = 0; i < arrow.length; i++) {
