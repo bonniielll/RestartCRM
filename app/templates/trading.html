@@ -12,9 +12,17 @@
             {% endfor %}
         </tr>
     </thead>
+    <tbody>
+        {% for tr in data %}
+            <tr>
+                {% for td in tr %}
+                    <td>{{ td }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
 {% block jsdatatable %}
 <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
-<script>new DataTable('#table', {data: {{ data }}});</script>
 {% endblock %}
