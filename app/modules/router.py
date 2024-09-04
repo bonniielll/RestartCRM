@@ -21,18 +21,19 @@ async def clients_base(request: Request):
     clients_data = await ClientsDAO.find_all()
     keys = BaseModels.Clients.__table__.columns.keys()
     data = list()
-    column_names = ['Номер телефона', 'ФИО', 'Комментарий', 'Количество взаимодействий',
-                    'Первое взаимодействие', 'Последнее взаимодействие', 'Сумма прибыли', 'Сумма выплат']
+    column_names = ['Айди', 'Номер телефона', 'ФИО', 'Комментарий', 'Количество взаимодействий', 'Сумма прибыли', 'Сумма выплат', 'Первое взаимодействие', 'Последнее взаимодействие',]
     for n, i in enumerate(clients_data):
         columns = list()
         for row in keys:
             date = getattr(clients_data[n], row)
-            try:
-                date = date.strftime('%d.%m.%Y %Hч:%Mм')
-            except:
-                columns.append(getattr(clients_data[n], row))
-            finally:
-                columns.append(date)
+            #try:
+                #date = date.strftime('%d.%m.%Y %Hч:%Mм')
+            #except:
+            #    print('223223')
+             #   columns.append(getattr(clients_data[n], row))
+            #else:
+             #   print('asdadsasdads')
+            columns.append(date)
         data.append(columns)
     return templates.TemplateResponse(request=request, name='trading.html', context={"data": data, "column_names": column_names})
 

@@ -12,8 +12,6 @@ class Clients(Base):
     names: Mapped[str]
     comment: Mapped[str]
     count_interactions: Mapped[int] = mapped_column(server_default=text('0'))
-    first_interaction: Mapped[created_at]
-    last_interaction: Mapped[updated_at]
     amount_revenue: Mapped[int] = mapped_column(server_default=text('0'))
     amount_payday: Mapped[int] = mapped_column(server_default=text('0'))
 
