@@ -1,19 +1,19 @@
-"""create tables
+"""Initial revision
 
-Revision ID: 2e2cf642abf4
-Revises: cc1557bdd566
-Create Date: 2024-09-02 21:51:11.190914
+Revision ID: b4b206d4aaaa
+Revises: 
+Create Date: 2024-09-05 14:39:34.525140
 
 """
 from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
+
 
 # revision identifiers, used by Alembic.
-revision: str = '2e2cf642abf4'
-down_revision: Union[str, None] = 'cc1557bdd566'
+revision: str = 'b4b206d4aaaa'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -24,9 +24,8 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('names', sa.String(), nullable=False),
+    sa.Column('comment', sa.String(), nullable=True),
     sa.Column('count_interactions', sa.Integer(), server_default=sa.text('0'), nullable=False),
-    sa.Column('first_interaction', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
-    sa.Column('last_interaction', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('amount_revenue', sa.Integer(), server_default=sa.text('0'), nullable=False),
     sa.Column('amount_payday', sa.Integer(), server_default=sa.text('0'), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
@@ -36,67 +35,81 @@ def upgrade() -> None:
     )
     op.create_table('comissiontrading',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('akb_name', sa.String(), nullable=False),
+    sa.Column('guarantee', sa.String(), nullable=False),
+    sa.Column('price', sa.String(), nullable=False),
+    sa.Column('action_sum', sa.String(), nullable=True),
+    sa.Column('sum', sa.String(), nullable=False),
+    sa.Column('method_pay', sa.String(), nullable=False),
+    sa.Column('client', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('expertise',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('akb_name', sa.String(), nullable=False),
+    sa.Column('client', sa.String(), nullable=False),
+    sa.Column('when_broken', sa.String(), nullable=False),
+    sa.Column('akb_docs', sa.String(), nullable=True),
+    sa.Column('akb_place', sa.String(), nullable=False),
+    sa.Column('comment_on_start', sa.String(), nullable=False),
+    sa.Column('akb_on_switch', sa.String(), nullable=True),
+    sa.Column('manager', sa.String(), nullable=False),
+    sa.Column('market', sa.String(), nullable=False),
+    sa.Column('tracker_url', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('newtrading',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('client_number', sa.String(), nullable=False),
+    sa.Column('akb', sa.String(), nullable=False),
+    sa.Column('scrap_akb', sa.String(), nullable=False),
+    sa.Column('scrap_price', sa.String(), nullable=False),
+    sa.Column('action_sum', sa.String(), nullable=False),
+    sa.Column('sum', sa.String(), nullable=False),
+    sa.Column('method', sa.String(), nullable=False),
+    sa.Column('comment', sa.String(), nullable=True),
+    sa.Column('payment_invoice', sa.String(), nullable=True),
+    sa.Column('invoice_data', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('scraptrading',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('client', sa.String(), nullable=True),
+    sa.Column('ah_akb', sa.String(), nullable=False),
+    sa.Column('sum', sa.String(), nullable=False),
+    sa.Column('method_pay', sa.String(), nullable=False),
+    sa.Column('comment', sa.String(), nullable=True),
+    sa.Column('mandarin_data', sa.String(), nullable=True),
+    sa.Column('passport_photo', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('user',
+    op.create_table('service',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('phone_number', sa.String(), nullable=False),
-    sa.Column('first_name', sa.String(), nullable=False),
-    sa.Column('last_name', sa.String(), nullable=False),
-    sa.Column('email', sa.String(), nullable=False),
-    sa.Column('password', sa.String(), nullable=False),
-    sa.Column('is_user', sa.Boolean(), server_default=sa.text('true'), nullable=False),
-    sa.Column('is_admin', sa.Boolean(), server_default=sa.text('false'), nullable=False),
-    sa.Column('is_super_admin', sa.Boolean(), server_default=sa.text('false'), nullable=False),
+    sa.Column('akb_name', sa.String(), nullable=False),
+    sa.Column('service_pay_sum', sa.String(), nullable=True),
+    sa.Column('comment_before', sa.String(), nullable=True),
+    sa.Column('akb_on_switch', sa.String(), nullable=True),
+    sa.Column('deposit_for_switch_sum', sa.String(), nullable=True),
+    sa.Column('comment_after', sa.String(), nullable=True),
+    sa.Column('pay_method', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('phone_number')
+    sa.PrimaryKeyConstraint('id')
     )
-    op.drop_table('users')
     # ### end Alembic commands ###
 
 
 def downgrade() -> None:
     # ### commands auto generated by Alembic - please adjust! ###
-    op.create_table('users',
-    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('phone_number', sa.VARCHAR(), autoincrement=False, nullable=False),
-    sa.Column('first_name', sa.VARCHAR(), autoincrement=False, nullable=False),
-    sa.Column('last_name', sa.VARCHAR(), autoincrement=False, nullable=False),
-    sa.Column('email', sa.VARCHAR(), autoincrement=False, nullable=False),
-    sa.Column('password', sa.VARCHAR(), autoincrement=False, nullable=False),
-    sa.Column('is_user', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False),
-    sa.Column('is_admin', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
-    sa.Column('is_super_admin', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
-    sa.Column('created_at', postgresql.TIMESTAMP(), server_default=sa.text('now()'), autoincrement=False, nullable=False),
-    sa.Column('updated_at', postgresql.TIMESTAMP(), server_default=sa.text('now()'), autoincrement=False, nullable=False),
-    sa.PrimaryKeyConstraint('id', name='users_pkey'),
-    sa.UniqueConstraint('email', name='users_email_key'),
-    sa.UniqueConstraint('phone_number', name='users_phone_number_key')
-    )
-    op.drop_table('user')
+    op.drop_table('service')
     op.drop_table('scraptrading')
     op.drop_table('newtrading')
     op.drop_table('expertise')

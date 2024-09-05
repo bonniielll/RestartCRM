@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.modules.schemas import SClientAdding
+from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding
 from app.modules.dao import ClientsDAO
 
 import os
@@ -22,7 +22,7 @@ async def adding_data(request: Request):
 
 
 @router.get('/clientadd')
-async def adding_data(request: Request, client_data: SClientAdding):
+async def adding_clients(request: Request, client_data: SClientAdding):
     exist_client = await ClientsDAO.find_one_or_none(phone_number=client_data.phone_number)
     if exist_client:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
@@ -35,3 +35,8 @@ async def adding_data(request: Request, client_data: SClientAdding):
                             detail='Произошла непредвиденная ошибка')
     finally:
         return templates.TemplateResponse(request=request, name='addnew.html')
+    
+
+@router.get('/tradeadd')
+async def adding_new_trades(request: Request, trade_data: SNewAdding):
+    pass

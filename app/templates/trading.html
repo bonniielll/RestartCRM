@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
 {% endblock %}
 {% block content %}
-{{ data }}
+<div class="table_content">
 <table id="table" class="display">
     <thead>
         <tr>
@@ -22,6 +22,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}
 {% block jsdatatable %}
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
