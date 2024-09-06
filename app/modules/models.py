@@ -75,3 +75,9 @@ class Service(Base):
     deposit_for_switch_sum: Mapped[str]
     comment_after: Mapped[str]
     pay_method: Mapped[str]
+
+
+class ScrapRecording(Base):
+    id: Mapped[int_pk]
+    akb: Mapped[str]
+    
