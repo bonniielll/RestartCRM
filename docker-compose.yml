@@ -1,16 +1,14 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres:latest
     container_name: postgres_container
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD:
-      POSTGRES_DB: RestartCRM
+      POSTGRES_USER: restartcrm
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: restartcrm
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "5430:5432"
+      - "5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data/pgdata
     deploy:
@@ -35,9 +33,35 @@ services:
       timeout: 10s
       retries: 5
     restart: unless-stopped
-    tty: true
-    stdin_open: true
-
-volumes:
-  pgdata:
-    driver: local
+  python:
+    image: python:3.10-slim
+    container_name: restartcms
+    environment:
+      DB_USER: restartcrm
+      DB_PASSWORD: changeme
+      DB_NAME: restartcrm
+      DB_HOST: postgres
+      DB_PORT: 5432
+      SECRET_KEY: changeme
+      ALGORITHM: HS256
+      APP_PORT: 7531
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    command: >
+      bash -c "
+        apt-get install -y git &&
+        git clone https://github.com/bonniielll/RestartCRM.git /app &&
+        cd /app &&
+        rm -rf .venv &&
+        python -m pip install -r requirements.txt &&
+        python -m alembic revision --autogenerate &&
+        python -m alembic upgrade head &&
+        python -m uvicorn app.main:app
+      "
+    restart: unless-stopped
