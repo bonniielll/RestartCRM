@@ -44,7 +44,8 @@ services:
       DB_PORT: 5432
       SECRET_KEY: changeme
       ALGORITHM: HS256
-      APP_PORT: 7531
+    ports:
+      - "5000"
     deploy:
       resources:
         limits:
@@ -62,6 +63,6 @@ services:
         python -m pip install -r requirements.txt &&
         python -m alembic revision --autogenerate &&
         python -m alembic upgrade head &&
-        python -m uvicorn app.main:app
+        python -m uvicorn app.main:app --port 5000
       "
     restart: unless-stopped
