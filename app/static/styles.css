@@ -211,6 +211,15 @@
   margin: 0 auto;
 }
 
+.adding_content{
+  margin: 1em 5em 2em;
+  background-color: #f7ed94;
+  padding: 10px;
+  width: 100%;
+  border: solid black 1px;
+  position: absolute;
+}
+
 .card_content{
   margin: 10px 50px 50px 50px;
   display: table;
@@ -282,6 +291,7 @@ a.navbar:hover:after {
   width: 100%; 
   left: 0; 
 }
+
 @media screen and (max-height: 300px) {
 	ul {
 		margin-top: 40px;
