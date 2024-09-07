@@ -18,6 +18,7 @@ templates = Jinja2Templates(directory=templates_abs_file_path)
 
 @router.get('/new')
 async def adding_data(request: Request):
+    # TODO: сверстать страницу с карточками добавления данных и дописать в schemas, creating_obj
     return templates.TemplateResponse(request=request, name='addnew.html')
 
 

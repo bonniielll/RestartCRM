@@ -19,8 +19,3 @@ async def authenticate_user(email: EmailStr, password: str):
     if not user or verify_password(plain_password=password, hashed_password=user.password) is False:
         return None
     return user
-
-
-if __name__ == "__main__":
-    pwd_hash = get_password_hash('levonka05')
-    print(pwd_hash)
