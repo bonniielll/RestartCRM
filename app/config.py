@@ -11,10 +11,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str
 
-    env_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
     if env_file:
         model_config = SettingsConfigDict(
-            env_file=env_file, env_file_encoding='utf-8'
+            env_file=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
         )
     else:
         model_config = SettingsConfigDict(env_file=os.environ)
