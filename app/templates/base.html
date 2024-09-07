@@ -1,103 +1,144 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Restart Holding | CRM </title>
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    {% block cssdatatable %}{% endblock %}
-    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!----======== CSS ======== -->
+  {% block cssdatatable %}{% endblock %}
+  <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+
+  <!----===== Boxicons CSS ===== -->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <!--<title>Dashboard Sidebar Menu</title>-->
+</head>
+
 <body>
-  <div class="sidebar close">
-    <ul class="nav-links">
-      <li>
-        <a href="/new">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Добавление</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/new">Добавление</a></li>
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <img src="logo.png" alt="">
+        </span>
+
+        <div class="text logo-text">
+          <span class="name">Restart Holding</span>
+          <span class="profession">RestartCRM</span>
+        </div>
+      </div>
+
+      <i class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+        <ul class="menu-links">
+          <li class="nav-link">
+            <a href="/new">
+              <i class='bx bx-home-alt icon'></i>
+              <span class="text nav-text">Добавление</span>
+            </a>
+          </li>
+
+          <li class="nav-link">
+            <a href="/clients">
+              <i class='bx bx-bar-chart-alt-2 icon'></i>
+              <span class="text nav-text">Клиенты</span>
+            </a>
+          </li>
+
+          <li class="nav-link">
+            <a href="/newt">
+              <i class='bx bx-bell icon'></i>
+              <span class="text nav-text">Продажа новых</span>
+            </a>
+          </li>
+
+          <li class="nav-link">
+            <a href="/comt">
+              <i class='bx bx-pie-chart-alt icon'></i>
+              <span class="text nav-text">Продажа комиссионных</span>
+            </a>
+          </li>
+
+          <li class="nav-link">
+            <a href="/scraptrade">
+              <i class='bx bx-heart icon'></i>
+              <span class="text nav-text">Перемещение лома</span>
+            </a>
+          </li>
+
+          <li class="nav-link">
+            <a href="/expertise">
+              <i class='bx bx-wallet icon'></i>
+              <span class="text nav-text">Экспертиза</span>
+            </a>
+          </li>
+
+          <li class="nav-link"></li>
+            <a href="/service">
+              <i class='bx bx-wallet icon'></i>
+              <span class="text nav-text">Обслуживание</span>
+            </a>
+          </li>
+
         </ul>
-      </li>
-      <li>
-        <a href="/clients">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Клиенты</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/clients">Клиенты</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/newt">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Продажа новых</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/newt">Продажа новых</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/comt">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Продажа комиссионных</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/comt">Продажа комиссионных</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/scraptrade">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Перемещение Лома</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/scraptrade">Перемещение Лома</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/expertise">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Экспертиза</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/expertise">Экспертиза</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
-        </ul>
-      </li>
-</ul>
-  </div>
-  <section class="home-section">
-    <div class="home-content">
-      <i class='bx bx-menu' ></i>
+      </div>
+
+      <div class="bottom-content">
+        <li class="">
+          <a href="#">
+            <i class='bx bx-log-out icon'></i>
+            <span class="text nav-text">Logout</span>
+          </a>
+        </li>
+
+        <li class="mode">
+          <div class="sun-moon">
+            <i class='bx bx-moon icon moon'></i>
+            <i class='bx bx-sun icon sun'></i>
+          </div>
+          <span class="mode-text text">Dark mode</span>
+
+          <div class="toggle-switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+
+      </div>
     </div>
-    <div class="content">{% block content %}{% endblock %}</div>
+
+  </nav>
+  <section class="home">
+    <div class="content_block">{% block content %}{% endblock %}</div>
+    <div>{% block table %}{% endblock %}</div>
   </section>
 
   <script>
-  let arrow = document.querySelectorAll(".arrow");
-  for (var i = 0; i < arrow.length; i++) {
-    arrow[i].addEventListener("click", (e)=>{
-   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-   arrowParent.classList.toggle("showMenu");
+    const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("close");
+    })
+    searchBtn.addEventListener("click", () => {
+      sidebar.classList.remove("close");
+    })
+    modeSwitch.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) {
+        modeText.innerText = "Light mode";
+      } else {
+        modeText.innerText = "Dark mode";
+      }
     });
-  }
-  let sidebar = document.querySelector(".sidebar");
-  let sidebarBtn = document.querySelector(".bx-menu");
-  console.log(sidebarBtn);
-  sidebarBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("close");
-  });
   </script>
   {% block jsdatatable %}{% endblock %}
 </body>
+
 </html>

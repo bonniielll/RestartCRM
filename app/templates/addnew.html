@@ -1,15 +1,50 @@
 {% extends "base.html" %}
+{% block cssdatatable %}
+<link href="{{ url_for('static', path='/inputtypes.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block content %}
-<div class="card_content">
-  <div clas="adding_content">
-    <div class="content">
-      <label>Basic form group</label>
-      <input type="text" placeholder="Your name" />
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+      <label>Добавить нового клиента</label>
+    <div class="nice-form-group">
+      <div class="nice-form-group">
+        <label>Номер клиента</label>
+        <input type="text" placeholder="номер" value="" name="client_number"/>
+      </div>
+      <div class="nice-form-group">
+        <label>ФИО Клиента</label>
+        <input type="text" placeholder="фио" value="" name="names"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Комментарий</label>
+        <input type="text" placeholder="комментарий" value="" name="comment"/>
+      </div>
+
     </div>
-    <div class="content">
-      <label>Basic form group</label>
-      <input type="text" placeholder="Your name" />
+  
     </div>
+  <div class="flap"></div>
 </div>
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
+  </div>
+  <div class="flap"></div>
+</div>
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
+  </div>
+  <div class="flap"></div>
+</div>
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
+  </div>
+  <div class="flap"></div>
 </div>
 {% endblock %}
