@@ -6,6 +6,9 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+html{
+  zoom: 80%;
+  }
 
 :root {
   /* ===== Colors ===== */
@@ -317,5 +320,6 @@ body.dark .home .text {
   background-color: #c7b302 !important;
   border: solid;
   border: 2px inherit black;
+  max-width: auto;
 }
 

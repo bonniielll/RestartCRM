@@ -37,9 +37,9 @@ services:
     image: python:3.10-slim
     container_name: restartcms
     environment:
-      DB_USER: restartcrm
-      DB_PASSWORD: changeme
-      DB_NAME: restartcrm
+      POSTGRES_USER: restartcrm
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: restartcrm
       DB_HOST: postgres
       DB_PORT: 5432
       SECRET_KEY: changeme
