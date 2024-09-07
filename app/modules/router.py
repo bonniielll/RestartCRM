@@ -103,7 +103,6 @@ async def scrap_trading(request: Request):
     return templates.TemplateResponse(request=request, name='trading.html', context={"data": data, "column_names": column_names})
 
 
-
 @router.get('/expertise')
 async def expertise(request: Request):
     expertise_data = await ExpertiseDAO.find_all()

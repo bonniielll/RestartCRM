@@ -8,6 +8,7 @@ from sqlalchemy import ForeignKey
 
 class Clients(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
     phone_number: Mapped[str_uniq]
     names: Mapped[str]
     comment: Mapped[str]
@@ -18,66 +19,78 @@ class Clients(Base):
 
 class NewTrading(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
     client_number: Mapped[str]
     akb: Mapped[str]
     scrap_akb: Mapped[str]
-    scrap_price: Mapped[str]
-    action_sum: Mapped[str]
-    sum: Mapped[str]
+    scrap_price: Mapped[int]
+    action_sum: Mapped[int]
+    sum: Mapped[int]
     method: Mapped[str]
-    comment: Mapped[str]
-    payment_invoice: Mapped[str]
-    invoice_data: Mapped[str]
+    comment: Mapped[str] = mapped_column(server_default=text('Нет'))
+    payment_invoice: Mapped[str] = mapped_column(server_default=text('Нет'))
+    invoice_data: Mapped[str] = mapped_column(server_default=text('Нет'))
 
 
 class ComissionTrading(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
     akb_name: Mapped[str]
     guarantee: Mapped[str]
-    price: Mapped[str]
-    action_sum: Mapped[str]
-    sum: Mapped[str]
+    price: Mapped[int]
+    action_sum: Mapped[int] = mapped_column(server_default=text('0'))
+    sum: Mapped[int]
     method_pay: Mapped[str]
-    client: Mapped[str]
+    client: Mapped[str] = mapped_column(server_default=text('Нет'))
 
 
 class ScrapTrading(Base):
     id: Mapped[int_pk]
-    client: Mapped[str]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
+    client: Mapped[str] = mapped_column(server_default=text('Нет'))
     ah_akb: Mapped[str]
-    sum: Mapped[str]
+    sum: Mapped[int]
     method_pay: Mapped[str]
-    comment: Mapped[str]
-    mandarin_data: Mapped[str]
-    passport_photo: Mapped[str]
+    comment: Mapped[str] = mapped_column(server_default=text('Нет'))
+    mandarin_data: Mapped[str] = mapped_column(server_default=text('Нет'))
+    passport_photo: Mapped[str] = mapped_column(server_default=text('Нет'))
 
 
 class Expertise(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
     akb_name: Mapped[str]
     client: Mapped[str]
-    when_broken: Mapped[str]
+    when_broken: Mapped[str] = mapped_column(server_default=text('После продажи клиенту'))
     akb_docs: Mapped[str]
     akb_place: Mapped[str]
     comment_on_start: Mapped[str]
-    akb_on_switch: Mapped[str]
+    akb_on_switch: Mapped[str] = mapped_column(server_default=text('Нет'))
     manager: Mapped[str]
     market: Mapped[str]
-    tracker_url: Mapped[str]
+    tracker_url: Mapped[str] = mapped_column(server_default=text('Нет'))
         
 
 class Service(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
     akb_name: Mapped[str]
-    service_pay_sum: Mapped[str]
+    service_pay_sum: Mapped[int] = mapped_column(server_default=text('0'))
     comment_before: Mapped[str]
-    akb_on_switch: Mapped[str]
-    deposit_for_switch_sum: Mapped[str]
-    comment_after: Mapped[str]
+    akb_on_switch: Mapped[str] = mapped_column(server_default=text('Нет'))
+    deposit_for_switch_sum: Mapped[int] = mapped_column(server_default=text('0'))
+    comment_after: Mapped[str] = mapped_column(server_default=text('Нет'))
     pay_method: Mapped[str]
 
 
 class ScrapRecording(Base):
     id: Mapped[int_pk]
+    account: Mapped[str] = mapped_column(server_default=text('Нет'))
+    move: Mapped[str]
     akb: Mapped[str]
-    
+    price: Mapped[int]
+    sum: Mapped[int]
+    method_pay: Mapped[str]
+    comment: Mapped[str]
+
+
