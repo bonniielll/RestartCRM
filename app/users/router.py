@@ -31,8 +31,8 @@ async def register_user(user_data: SUserRegister) -> dict:
             status_code=status.HTTP_409_CONFLICT,
             detail='Пользователь уже существует.'
         )
-    user_dict = user.data.dict()
-    user_dict['password'] = get_password_hash(user.data.password)
+    user_dict = user_data.dict()
+    user_dict['password'] = get_password_hash(user_data.password)
     await UsersDAO.add(**user_dict)
     return {'message': 'Вы успешно зарегестрированы!'}
 

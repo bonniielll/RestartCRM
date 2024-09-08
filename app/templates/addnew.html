@@ -7,44 +7,113 @@
   <div class="content">
     <h1>Добавление Клиента</h1>
       <label>Добавить нового клиента</label>
+    <form method="post" id="addclient-form">
     <div class="nice-form-group">
       <div class="nice-form-group">
         <label>Номер клиента</label>
-        <input type="text" placeholder="номер" value="" name="client_number"/>
+        <input type="tel" placeholder="номер" name="phone_number"/>
       </div>
       <div class="nice-form-group">
         <label>ФИО Клиента</label>
-        <input type="text" placeholder="фио" value="" name="names"/>
+        <input type="text" placeholder="фио" name="names"/>
       </div>
       <div class="nice-form-group">
         <label>Комментарий</label>
-        <input type="text" placeholder="комментарий" value="" name="comment"/>
+        <input type="text" placeholder="комментарий" name="comment"/>
       </div>
+      <input type="submit" value="Добавить клиента"/>
+    </div>
+  </form>
+    </div>
+  <div class="flap"></div>
+</div>
+<div class="container">
+  <div class="content">
+    <h1>Продажа новой АКБ (или доп. товар)</h1>
+    <legend>Магазин</legend>
+  <form action="/tradeadd" method="post">
+  <div class="nice-form-group">
+    <input type="radio" name="account" id="авторемонтная" />
+    <label for="Авторемонтная">Авторемонтная</label>
+    <div class="nice-form-group">
+      <input type="radio" name="account" id="березка" />
+      <label for="березка">березка</label>
+    </div>
+    <div class="nice-form-group">
+      <input type="radio" name="account" id="юркина" />
+      <label for="юркина">юркина</label>
+    </div>
+    <div class="nice-form-group">
+      <input type="radio" name="account" id="Просторная" />
+      <label for="Просторная">Просторная</label>
+    </div>
+    <div class="nice-form-group">
+    <input type="radio" name="account" id="пролетарская" />
+    <label for="пролетарская">пролетарская</label>
+    </div>
+  </div>
+  <div class="nice-form-group">
+    <label>Номер клиента</label>
+    <input type="text" placeholder="номер" value="" name="client_number"/>
+  </div>
+  <div class="nice-form-group">
+    <label>АКБ (Название, емкость, полярность)</label>
+    <input type="text" placeholder="акб" value="" name="akb"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Цена АКБ</label>
+    <input type="text" placeholder="цена" value="" name="akb_price"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Старый АКБ</label>
+    <input type="text" placeholder="емкость (по-умолчанию - нет)" value="" name="scrap_akb"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Цена старого</label>
+    <input type="text" placeholder="цена (по-умолчанию - 0)" value="" name="scrap_price"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Скидка (сюда не пишется за старый)</label>
+    <input type="text" placeholder="скидка" value="" name="action_sum"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Сумма прибыли</label>
+    <input type="text" placeholder="итого" value="" name="sum"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Способ оплаты</label>
+    <input type="text" placeholder="способ" value="" name="method"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Комментарий (необязательно)</label>
+    <input type="text" placeholder="комментарий" value="" name="comment"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Оплата по счету</label>
+    <input type="text" placeholder="по умолчанию - нет" value="" name="payment_invoice"/>
+  </div>
+  <div class="nice-form-group">
+    <label>Данные счета</label>
+    <input type="text" placeholder="по умолчанию - нет" value="" name="invoice_data"/>
+  </div>
+  <input type="submit" value="Добавить продажу"/>
+  </div>
+</form>
+  </div>
+</div>
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
+  </div>
+  <div class="flap"></div>
+</div>
+<div class="container">
+  <div class="content">
+    <h1>Добавление Клиента</h1>
+    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
+  </div>
+  <div class="flap"></div>
+</div>
 
-    </div>
-  
-    </div>
-  <div class="flap"></div>
-</div>
-<div class="container">
-  <div class="content">
-    <h1>Добавление Клиента</h1>
-    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
-  </div>
-  <div class="flap"></div>
-</div>
-<div class="container">
-  <div class="content">
-    <h1>Добавление Клиента</h1>
-    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
-  </div>
-  <div class="flap"></div>
-</div>
-<div class="container">
-  <div class="content">
-    <h1>Добавление Клиента</h1>
-    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
-  </div>
-  <div class="flap"></div>
-</div>
 {% endblock %}
