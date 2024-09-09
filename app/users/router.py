@@ -23,9 +23,15 @@ def auth_page(request: Request):
     return templates.TemplateResponse(request=request, name="reg.html")
 
 
-@router.post('/register/')
+@router.get('/l')
+def login_page(request: Request):
+    return templates.TemplateResponse(request=request, name='auth.html')
+
+
+@router.post("/register/")
 async def register_user(user_data: SUserRegister) -> dict:
-    user = await UsersDAO.find_one_or_none(name=user_data.name)
+    print(user_data)
+    user = await UsersDAO.find_one_or_none(email=user_data.email)
     if user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -34,7 +40,7 @@ async def register_user(user_data: SUserRegister) -> dict:
     user_dict = user_data.dict()
     user_dict['password'] = get_password_hash(user_data.password)
     await UsersDAO.add(**user_dict)
-    return templates.TemplateResponse(name="base.html")
+    return {'message': 'Вы успешно зарегистрированы!'}
 
 
 @router.post("/login/")
@@ -45,7 +51,7 @@ async def auth_user(response: Response, user_data: SUserAuth):
                             detail='Неверная почта или пароль')
     access_token = create_acces_token({"sub": str(check.id)})
     response.set_cookie(key="users_access_token", value=access_token, httponly=True)
-    return {'access_token': access_token, 'refresh_token': None}
+    return {'access_token': access_token, 'refresh_token': None, 'message': 'Вы успешно авторизовались!'}
 
 
 @router.post("/logout/")

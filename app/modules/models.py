@@ -15,6 +15,9 @@ class Clients(Base):
     amount_revenue: Mapped[int] = mapped_column(server_default=text('0'))
     amount_payday: Mapped[int] = mapped_column(server_default=text('0'))
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(id={self.id})"
+
 
 class NewTrading(Base):
     id: Mapped[int_pk]

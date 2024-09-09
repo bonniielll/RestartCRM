@@ -9,6 +9,7 @@ class SClientAdding(BaseModel):
 
 
 class SNewAdding(BaseModel):
+    account: str = Field(..., min_length=5, max_length=30, description='Аккаунт')
     client_number: str = Field(..., min_length=5, max_length=50, description='Номер клиента')
     akb: str = Field(..., min_length=5, max_length=50, description='Название нового АКБ')
     scrap_akb: str = Field(..., min_length=5, max_length=50, description='Старый АКБ')

@@ -8,35 +8,73 @@
     {% block cssdatatable %}
     <link href="{{ url_for('static', path='/auth.css') }}" rel="stylesheet" />
     {% endblock %}
+    <script type="text/javascript"language="javascript">
+        async function regFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие формы
+
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('registration-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/clients';  // Перенаправляем пользователя на страницу логина
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при регистрации. Пожалуйста, попробуйте снова.');
+    }
+}
+    </script>
 </head>
 <body>
-      <form id="registration-form" method="post">
           <div class="form">
           <div class="title">RestartCRM</div>
           <div class="subtitle">Зарегистрировать аккаунт</div>
+          <form id="registration-form">
           <div class="input-container ic1">
-            <input id="name" class="input" type="text" placeholder=" " />
+            <input id="name" name="name" class="input" type="text" placeholder=" " />
             <div class="cut"></div>
             <label for="name" class="placeholder">Имя менеджера</label>
           </div>
           <div class="input-container ic2">
-            <input id="magazine" class="input" type="text" placeholder=" " />
+            <input id="magazine" name="magazine" class="input" type="text" placeholder=" " />
             <div class="cut"></div>
             <label for="magazine" class="placeholder">Магазин</label>
           </div>
-          <div class="input-container ic1">
-            <input id="email" class="input" type="text" placeholder=" " />
-            <div class="cut"></div>
-            <label for="email" class="placeholder">Почта</label>
-          </div>
           <div class="input-container ic2">
-            <input id="password" class="input" type="text" placeholder=" " />
+            <input id="password" name="password" class="input" type="text" placeholder=" " />
             <div class="cut cut-short"></div>
             <label for="password" class="placeholder">Пароль</label>
           </div>
+          <div class="input-container ic1">
+            <input id="email" name="email" class="input" type="text" placeholder=" " />
+            <div class="cut"></div>
+            <label for="email" class="placeholder">Почта</label>
+          </div>
           <button type="submit" id="reg-button" class="submit" onclick="regFunction(event)">Зарегистрироваться</button>
+        </form>
         </div>
-      </form>
-<script src="{{ url_for('static', path='/js/script.js') }}"></script>
 </body>
 </html>

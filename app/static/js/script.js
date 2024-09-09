@@ -17,8 +17,9 @@ async function addcFunction(event) {
 }
 
 async function regFunction(event) {
+    console.log('131212')
     event.preventDefault();  // Предотвращаем стандартное действие формы
-
+    const listener = addEventListener('submit', get_input_data)
     // Получаем форму и собираем данные из неё
     const form = document.getElementById('registration-form');
     const formData = new FormData(form);
@@ -44,7 +45,7 @@ async function regFunction(event) {
         const result = await response.json();
 
         if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
-            window.location.href = '/login';  // Перенаправляем пользователя на страницу логина
+            window.location.href = '/clients';  // Перенаправляем пользователя на страницу логина
         } else {
             alert(result.message || 'Неизвестная ошибка');
         }

@@ -6,13 +6,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block script %}{% endblock %}
   <!----======== CSS ======== -->
   {% block cssdatatable %}{% endblock %}
   <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-
+  <link href="{{ url_for('static', path='/inputtypes.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', path='/auth.css') }}" rel="stylesheet" />
   <!----===== Boxicons CSS ===== -->
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <!--<title>Dashboard Sidebar Menu</title>-->
+
 </head>
 
 <body>
@@ -89,7 +92,7 @@
 
       <div class="bottom-content">
         <li class="">
-          <a href="#">
+          <a href="/auth/logout/">
             <i class='bx bx-log-out icon'></i>
             <span class="text nav-text">Logout</span>
           </a>
@@ -139,7 +142,6 @@
     });
   </script>
   {% block jsdatatable %}{% endblock %}
-  <script src="{{ url_for('static', path='/js/script.js') }}"></script>
 </body>
 
 </html>

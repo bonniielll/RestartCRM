@@ -33,13 +33,12 @@ async def adding_clients(client: SClientAdding) -> dict:
         )
     client_dict = client.dict()
     await ClientsDAO.add(**client_dict)
-    return templates.TemplateResponse(request=client, name='addnew.html')
+    return {'message': 'Клиент добавлен!'}
     
 
 @router.post('/tradeadd')
-async def adding_new_trades(request: Request, trade_data: SNewAdding):
-    trade = await NewTradingDAO.find_one_or_none(client=trade_data.client)
-    trade_dict = trade.dict()
+async def adding_new_trades(trade_data: SNewAdding) -> dict:
+    trade_dict = trade_data.dict()
     await NewTradingDAO.add(**trade_dict)
-    return templates.TemplateResponse(request=request, name='addnew.html')
+    return {'message': 'Продажа добавлена!'}
     

@@ -1,17 +1,103 @@
 {% extends "base.html" %}
-{% block cssdatatable %}
-<link href="{{ url_for('static', path='/inputtypes.css') }}" rel="stylesheet" />
+
+
+{% block script %}
+<script type="text/javascript"language="javascript">
+  async function caddFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+    
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('addclient-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+  
+    try {
+        const response = await fetch('/clientadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении клиента. Пожалуйста, попробуйте снова.');
+    }
+}
+
+</script>
+
+<script type="text/javascript"language="javascript">
+  async function ntradeaddFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+    
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('addclient-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+  
+    try {
+        const response = await fetch('/tradeadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Успешно!')
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
+    }
+}
+
+</script>
 {% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="content">
     <h1>Добавление Клиента</h1>
       <label>Добавить нового клиента</label>
-    <form method="post" id="addclient-form">
     <div class="nice-form-group">
+      <form id="addclient-form">
       <div class="nice-form-group">
         <label>Номер клиента</label>
-        <input type="tel" placeholder="номер" name="phone_number"/>
+        <input type="tel" placeholder="Номер в формате +71234567890" name="phone_number"/>
       </div>
       <div class="nice-form-group">
         <label>ФИО Клиента</label>
@@ -21,9 +107,10 @@
         <label>Комментарий</label>
         <input type="text" placeholder="комментарий" name="comment"/>
       </div>
-      <input type="submit" value="Добавить клиента"/>
+      <button type="submit" id="reg-button" class="submit" onclick="caddFunction(event)">Добавить клиента</button>
+    </form>
     </div>
-  </form>
+  
     </div>
   <div class="flap"></div>
 </div>
@@ -31,7 +118,7 @@
   <div class="content">
     <h1>Продажа новой АКБ (или доп. товар)</h1>
     <legend>Магазин</legend>
-  <form action="/tradeadd" method="post">
+  <form id="addntrade-form">
   <div class="nice-form-group">
     <input type="radio" name="account" id="авторемонтная" />
     <label for="Авторемонтная">Авторемонтная</label>
@@ -96,7 +183,7 @@
     <label>Данные счета</label>
     <input type="text" placeholder="по умолчанию - нет" value="" name="invoice_data"/>
   </div>
-  <input type="submit" value="Добавить продажу"/>
+  <button type="submit" id="reg-button" class="submit" onclick="ntradeaddFunction(event)">Добавить продажу</button>
   </div>
 </form>
   </div>
