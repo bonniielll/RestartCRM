@@ -22,7 +22,7 @@ class Clients(Base):
 class NewTrading(Base):
     id: Mapped[int_pk]
     account: Mapped[str]
-    client_number: Mapped[str]
+    client_number: Mapped[str] = mapped_column(server_default=text('0'))
     akb: Mapped[str]
     akb_price: Mapped[int]
     scrap_akb: Mapped[str]
@@ -95,5 +95,5 @@ class ScrapRecording(Base):
     sum: Mapped[int]
     method_pay: Mapped[str]
     comment: Mapped[str]
-
+    where_move: Mapped[str]
 

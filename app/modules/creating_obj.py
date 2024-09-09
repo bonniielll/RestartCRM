@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding
 from app.modules.dao import ClientsDAO, NewTradingDAO
 from typing import Annotated
-
+from app.users.dependencies import get_current_user
 import os
 
 

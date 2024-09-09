@@ -43,8 +43,8 @@ async def new_trading(request: Request):
     trades_data = await NewTradingDAO.find_all()
     keys = BaseModels.NewTrading.__table__.columns.keys()
     data = list()
-    column_names = ['Айди', 'Номер телефона', 'АКБ', 'Старый акб', 
-                    'Цена старого', 'Скидка', 'Сумма', 'Способ оплаты', 
+    column_names = ['Номер', 'Магазин', 'Номер клиента', 'АКБ', 'Цена АКБ', 'Старый акб',
+                    'Цена старого', 'Скидка', 'Сумма', 'Способ оплаты',
                     'Комментарий', 'По счету', 'Данные счета'
                     , 'Дата создания', 'Дата обновления'] 
     for n, i in enumerate(trades_data):

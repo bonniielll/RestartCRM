@@ -33,6 +33,7 @@
 
         if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
             window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Клиент успешно добавлен!');
         } else {
             alert(result.message || 'Неизвестная ошибка');
         }
@@ -49,7 +50,7 @@
     event.preventDefault();  // Предотвращаем стандартное действие форм
     
     // Получаем форму и собираем данные из неё
-    const form = document.getElementById('addclient-form');
+    const form = document.getElementById('addntrade-form');
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
@@ -117,90 +118,81 @@
 <div class="container">
   <div class="content">
     <h1>Продажа новой АКБ (или доп. товар)</h1>
-    <legend>Магазин</legend>
-  <form id="addntrade-form">
-  <div class="nice-form-group">
-    <input type="radio" name="account" id="авторемонтная" />
-    <label for="Авторемонтная">Авторемонтная</label>
-    <div class="nice-form-group">
-      <input type="radio" name="account" id="березка" />
-      <label for="березка">березка</label>
-    </div>
-    <div class="nice-form-group">
-      <input type="radio" name="account" id="юркина" />
-      <label for="юркина">юркина</label>
-    </div>
-    <div class="nice-form-group">
-      <input type="radio" name="account" id="Просторная" />
-      <label for="Просторная">Просторная</label>
-    </div>
-    <div class="nice-form-group">
-    <input type="radio" name="account" id="пролетарская" />
-    <label for="пролетарская">пролетарская</label>
-    </div>
+    <form id="addntrade-form">
+      <div class="nice-form-group">
+        <label>Магазин</label>
+        <select name="account">
+          <option>Авторемонтная</option>
+          <option>Берёзка</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Номер клиента</label>
+        <input type="text" placeholder="номер" value="" name="client_number"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Название АКБ</label>
+        <input type="text" placeholder="акб" value="" name="akb"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Цена АКБ</label>
+        <input type="text" placeholder="цена" value="" name="akb_price"/>
+      </div>
+      <div class="nice-form-group">
+          <label>Старый акб</label>
+        <select name="scrap_akb">
+          <option>40-54</option>
+          <option>55-69</option>
+          <option>70-79</option>
+          <option>80-94</option>
+          <option>90-110</option>
+          <option>110-132</option>
+          <option>132-190</option>
+          <option>190-230</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Цена за старую АКБ</label>
+        <input type="text" placeholder="цена" value="" name="scrap_price"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Скидка</label>
+        <input type="text" placeholder="сумма (не учитывая старую акб)" value="" name="action_sum"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Сумма продажи</label>
+        <input type="text" placeholder="итого (если отрицательная, поставить '-' перед суммой)" value="" name="sum"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Способ оплаты</label>
+        <select name="method">
+          <option>терминал</option>
+          <option>наличные</option>
+          <option>перевод</option>
+          <option>Qr</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Комментарий к продаже</label>
+        <input type="text" placeholder="Комментарий" value="" name="comment"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Оплата по счету</label>
+        <select name="payment_invoice">
+          <option>Нет</option>
+          <option>Да</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Данные счета</label>
+        <input type="text" placeholder="ссылка/полные данные" value="" name="invoice_data"/>
+      </div>
+      <button type="submit" id="reg-button" class="submit" onclick="ntradeaddFunction(event)">Добавить продажу</button>
+    </form>
   </div>
-  <div class="nice-form-group">
-    <label>Номер клиента</label>
-    <input type="text" placeholder="номер" value="" name="client_number"/>
-  </div>
-  <div class="nice-form-group">
-    <label>АКБ (Название, емкость, полярность)</label>
-    <input type="text" placeholder="акб" value="" name="akb"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Цена АКБ</label>
-    <input type="text" placeholder="цена" value="" name="akb_price"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Старый АКБ</label>
-    <input type="text" placeholder="емкость (по-умолчанию - нет)" value="" name="scrap_akb"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Цена старого</label>
-    <input type="text" placeholder="цена (по-умолчанию - 0)" value="" name="scrap_price"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Скидка (сюда не пишется за старый)</label>
-    <input type="text" placeholder="скидка" value="" name="action_sum"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Сумма прибыли</label>
-    <input type="text" placeholder="итого" value="" name="sum"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Способ оплаты</label>
-    <input type="text" placeholder="способ" value="" name="method"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Комментарий (необязательно)</label>
-    <input type="text" placeholder="комментарий" value="" name="comment"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Оплата по счету</label>
-    <input type="text" placeholder="по умолчанию - нет" value="" name="payment_invoice"/>
-  </div>
-  <div class="nice-form-group">
-    <label>Данные счета</label>
-    <input type="text" placeholder="по умолчанию - нет" value="" name="invoice_data"/>
-  </div>
-  <button type="submit" id="reg-button" class="submit" onclick="ntradeaddFunction(event)">Добавить продажу</button>
-  </div>
-</form>
-  </div>
-</div>
-<div class="container">
-  <div class="content">
-    <h1>Добавление Клиента</h1>
-    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
-  </div>
-  <div class="flap"></div>
-</div>
-<div class="container">
-  <div class="content">
-    <h1>Добавление Клиента</h1>
-    <h3>I love designing websites and keep things as simple as possible. My goals is to focus on minimalism and conveying the message that you want to send</h3>
-  </div>
-  <div class="flap"></div>
 </div>
 
 {% endblock %}
