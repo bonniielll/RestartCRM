@@ -20,12 +20,12 @@ templates = Jinja2Templates(directory=templates_abs_file_path)
 
 @router.get('/')
 def auth_page(request: Request):
-    return templates.TemplateResponse(request=request, name="auth.html")
+    return templates.TemplateResponse(request=request, name="reg.html")
 
 
 @router.post('/register/')
 async def register_user(user_data: SUserRegister) -> dict:
-    user = await UsersDAO.find_one_or_none(email=user_data.email)
+    user = await UsersDAO.find_one_or_none(name=user_data.name)
     if user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -34,7 +34,7 @@ async def register_user(user_data: SUserRegister) -> dict:
     user_dict = user_data.dict()
     user_dict['password'] = get_password_hash(user_data.password)
     await UsersDAO.add(**user_dict)
-    return {'message': 'Вы успешно зарегестрированы!'}
+    return templates.TemplateResponse(name="base.html")
 
 
 @router.post("/login/")
