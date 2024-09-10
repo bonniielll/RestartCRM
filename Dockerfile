@@ -9,14 +9,14 @@ ENV POSTGRES_PORT=5432
 ENV SECRET_KEY=changeme
 ENV ALGORITHM=HS256
 
-COPY requirements.txt ./requirements.txt
-COPY alembic.ini ./alembic.ini
+COPY docker-entrypoint.sh alembic.ini requirements.txt ./
 COPY app ./app
 
 RUN pip install -r requirements.txt
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 5000
 
 HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
 
-CMD ["python -m alembic revision --autogenerate && python -m alembic upgrade head && python -m uvicorn app.main:app"]
+CMD ["./docker-entrypoint.sh"]
