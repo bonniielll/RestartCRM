@@ -17,7 +17,7 @@ class SNewAdding(BaseModel):
     scrap_price: int = Field(..., description='Сумма за старый АКБ')
     action_sum: int = Field(..., description='Сумма скидки')
     sum: int = Field(..., description='Сумма продажи')
-    method: str = Field(..., min_length=5, max_length=50, description='Способ оплаты')
+    method: str = Field(..., min_length=0, max_length=50, description='Способ оплаты')
     comment: str = Field(..., min_length=0, max_length=50, description='Комментарий')
     payment_invoice: str = Field(..., min_length=0, max_length=50, description='Оплата по счету')
     invoice_data: str = Field(..., min_length=0, max_length=150, description='Оплата по счету')
@@ -25,13 +25,16 @@ class SNewAdding(BaseModel):
 
 class SComissionAdding(BaseModel):
     account: str = Field(..., min_length=0, max_length=30, description='Аккаунт')
-    akb_name: str = Field(..., min_length=5, max_length=50, description='Название акб (и код)')
-    guarantee: str = Field(..., min_length=5, max_length=50, description='Гарантия (мес)')
-    price: str = Field(..., min_length=5, max_length=50, description='Цена акб')
-    action_sum: str = Field(..., min_length=5, max_length=50, description='Сумма скидки')
-    sum: str = Field(..., min_length=5, max_length=50, description='Сумма оплаты')
-    method_pay: str = Field(..., min_length=5, max_length=50, description='Способ оплаты')
-    client: str = Field(..., min_length=5, max_length=50, description='Номер клиента')
+    akb_name: str = Field(..., min_length=0, max_length=50, description='Название акб (и код)')
+    guarantee: str = Field(..., min_length=0, max_length=50, description='Гарантия (мес)')
+    price: int = Field(..., description='Цена акб')
+    scrap_akb: str = Field(..., description='Старый акб')
+    scrap_price: str = Field(..., description='Сумма за старый акб')
+    action_sum: int = Field(..., description='Сумма скидки')
+    sum: int = Field(..., description='Сумма оплаты')
+    method_pay: str = Field(..., min_length=0, max_length=50, description='Способ оплаты')
+    client: str = Field(..., description='Номер клиента')
+    comment: str = Field(..., description='Комментарий к продаже')
 
 
 class SScrapAdding(BaseModel):

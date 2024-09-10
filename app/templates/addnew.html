@@ -85,7 +85,48 @@
         alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
     }
 }
+</script>
 
+<script type="text/javascript"language="javascript">
+  async function comtradeaddFunction(event).addEventListener('submit', async function(event)) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+    
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('addcomtrade-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+  
+    try {
+        const response = await fetch('/comtradeadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Успешно!')
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
+    }
+}
 </script>
 {% endblock %}
 
@@ -144,14 +185,14 @@
       <div class="nice-form-group">
           <label>Старый акб</label>
         <select name="scrap_akb">
-          <option>40-54</option>
+          <option>35-44</option>
+          <option>45-54</option>
           <option>55-69</option>
-          <option>70-79</option>
-          <option>80-94</option>
-          <option>90-110</option>
-          <option>110-132</option>
-          <option>132-190</option>
-          <option>190-230</option>
+          <option>70-89</option>
+          <option>90-130</option>
+          <option>132-180</option>
+          <option>190-220</option>
+          <option>225-230</option>
         </select>
       </div>
       <div class="nice-form-group">
@@ -191,6 +232,70 @@
         <input type="text" placeholder="ссылка/полные данные" value="" name="invoice_data"/>
       </div>
       <button type="submit" id="reg-button" class="submit" onclick="ntradeaddFunction(event)">Добавить продажу</button>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="content">
+    <h1>Продажа раб. Б/У</h1>
+    <form id="addcomtrade-form">
+      <div class="nice-form-group">
+        <label>Магазин</label>
+        <select name="account">
+          <option>Авторемонтная</option>
+          <option>Берёзка</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>АКБ</label>
+        <input type="text" placeholder="название, код" value="" name="akb_name"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Гарантия</label>
+        <input type="text" placeholder="(месяцев)" value="" name="guarantee"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Цена акб</label>
+        <input type="text" placeholder="цена" value="" name="price"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Старый/ые АКБ</label>
+        <input type="text" placeholder="пример записи: '60-1 70-3' (60 объём - 1 кол-во)" value="" name="scrap_akb"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Сумма за старые АКБ</label>
+        <input type="text" placeholder="полная сумма" value="" name="scrap_price"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Скидка</label>
+        <input type="text" placeholder="сумма скидки (не учитывая старые акб)" value="" name="action_sum"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Сумма продажи</label>
+        <input type="text" placeholder="итого (если отрицательная, поставить '-' перед суммой)" value="" name="sum"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Способ оплаты</label>
+        <select name="method_pay">
+          <option>терминал</option>
+          <option>наличные</option>
+          <option>перевод</option>
+          <option>Qr</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Номер клиента</label>
+        <input type="text" placeholder="номер +71234567890" value="" name="client"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Комментарий к продаже</label>
+        <input type="text" placeholder="Комментарий" value="" name="comment"/>
+      </div>
+      <button type="submit" id="reg-button" class="submit" onclick="comtradeaddFunction(event)">Добавить продажу комиссионного</button>
     </form>
   </div>
 </div>

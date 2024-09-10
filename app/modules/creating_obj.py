@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding
-from app.modules.dao import ClientsDAO, NewTradingDAO
+from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO
 from typing import Annotated
 from app.users.dependencies import get_current_user
 import os
@@ -40,5 +40,11 @@ async def adding_clients(client: SClientAdding) -> dict:
 async def adding_new_trades(trade_data: SNewAdding) -> dict:
     trade_dict = trade_data.dict()
     await NewTradingDAO.add(**trade_dict)
-    return {'message': 'Продажа добавлена!'}
-    
+    return {'message': 'Продажа нового акб добавлена!'}
+
+
+@router.post('/comtradeadd')
+async def adding_comission_trades(trade_data: SComissionAdding) -> dict:
+    trade_dict = trade_data.dict()
+    await ComissionTradingDAO.add(**trade_dict)
+    return {'message': 'Продажа РАБ Б/У добавлена!'}

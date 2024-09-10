@@ -39,12 +39,15 @@ class ComissionTrading(Base):
     id: Mapped[int_pk]
     account: Mapped[str]
     akb_name: Mapped[str]
-    guarantee: Mapped[str]
-    price: Mapped[int]
-    action_sum: Mapped[int] = mapped_column(server_default=text('0'))
-    sum: Mapped[int]
+    guarantee: Mapped[int] = mapped_column(server_default=text('1'))
+    price: Mapped[float]
+    scrap_akb: Mapped[str] = mapped_column(server_default=text('0'))
+    scrap_price: Mapped[float] = mapped_column(server_default=text('0'))
+    action_sum: Mapped[float] = mapped_column(server_default=text('0'))
+    sum: Mapped[float]
     method_pay: Mapped[str]
-    client: Mapped[str]
+    client: Mapped[str] = mapped_column(server_default=text('0'))
+    comment: Mapped[str] = mapped_column(server_default=text('0'))
 
 
 class ScrapTrading(Base):

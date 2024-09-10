@@ -10,7 +10,7 @@ class NewTradingDAO(BaseDao):
     model = NewTrading
 
 
-class ComissionDAO(BaseDao):
+class ComissionTradingDAO(BaseDao):
     model = ComissionTrading
 
 

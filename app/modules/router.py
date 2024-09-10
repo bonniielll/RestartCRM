@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionDAO, ScrapDAO, ExpertiseDAO, ServiceDAO
+from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO, ScrapDAO, ExpertiseDAO, ServiceDAO
 import app.modules.models as BaseModels
 import os
 from time import strftime
@@ -63,7 +63,7 @@ async def new_trading(request: Request):
 
 @router.get('/comt')
 async def comission_trading(request: Request):
-    comission_data = await ComissionDAO.find_all()
+    comission_data = await ComissionTradingDAO.find_all()
     keys = BaseModels.ComissionTrading.__table__.columns.keys()
     data = list()
     column_names = ['Айди', 'АКБ(название,код)', 'Гарантия(Мес)', 'Цена', 'Скидка',
