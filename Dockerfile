@@ -9,8 +9,6 @@ ENV POSTGRES_PORT=5432
 ENV SECRET_KEY=changeme
 ENV ALGORITHM=HS256
 
-WORKDIR /bot
-
 COPY requirements.txt ./requirements.txt
 COPY app ./app
 
