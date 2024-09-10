@@ -1,7 +1,13 @@
 services:
-  postgres:
+  app:
+    build: .
+    container_name: restartcrm
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
     image: postgres:latest
-    container_name: postgres_container
+    container_name: restartcrm_db
     environment:
       POSTGRES_USER: restartcrm
       POSTGRES_PASSWORD: changeme
@@ -10,7 +16,7 @@ services:
     ports:
       - "5432"
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - restartcrm_pgdata:/var/lib/postgresql/data/pgdata
     deploy:
       resources:
         limits:
@@ -28,42 +34,11 @@ services:
                -c wal_buffers=16MB
                -c default_statistics_target=100
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres_user -d postgres_db" ]
+      test: [ "CMD-SHELL", "pg_isready -U restartcrm -d restartcrm" ]
       interval: 30s
       timeout: 10s
       retries: 5
     restart: unless-stopped
-  python:
-    image: python:3.10-slim
-    container_name: restartcms
-    environment:
-      POSTGRES_USER: restartcrm
-      POSTGRES_PASSWORD: changeme
-      POSTGRES_DB: restartcrm
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      SECRET_KEY: changeme
-      ALGORITHM: HS256
-    ports:
-      - "5000"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
-    command: >
-      bash -c "
-        apt-get update &&
-        apt-get install -y git &&
-        git clone https://github.com/bonniielll/RestartCRM.git /app &&
-        cd /app &&
-        rm -rf .venv &&
-        python -m pip install -r requirements.txt &&
-        python -m alembic revision --autogenerate &&
-        python -m alembic upgrade head &&
-        python -m uvicorn app.main:app --port 5000
-      "
-    restart: unless-stopped
+
+volumes:
+  restartcrm_pgdata:
