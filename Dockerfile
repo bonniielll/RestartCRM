@@ -10,6 +10,7 @@ ENV SECRET_KEY=changeme
 ENV ALGORITHM=HS256
 
 COPY requirements.txt ./requirements.txt
+COPY alembic.ini ./alembic.ini
 COPY app ./app
 
 RUN pip install -r requirements.txt
