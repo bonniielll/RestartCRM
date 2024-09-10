@@ -40,8 +40,8 @@ services:
       POSTGRES_USER: restartcrm
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
-      DB_HOST: postgres
-      DB_PORT: 5432
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
       SECRET_KEY: changeme
       ALGORITHM: HS256
     ports:
