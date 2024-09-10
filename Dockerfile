@@ -14,11 +14,9 @@ COPY alembic.ini ./alembic.ini
 COPY app ./app
 
 RUN pip install -r requirements.txt
-RUN python -m alembic revision --autogenerate
-RUN python -m alembic upgrade head
 
 EXPOSE 5000
 
 HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
 
-CMD ["uvicorn app.main:app"]
+CMD ["alembic revision --autogenerate && alembic upgrade head && uvicorn app.main:app"]
