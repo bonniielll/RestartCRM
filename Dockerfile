@@ -19,4 +19,4 @@ EXPOSE 5000
 
 HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
 
-CMD ["alembic revision --autogenerate && alembic upgrade head && uvicorn app.main:app"]
+CMD ["python -m alembic revision --autogenerate && python -m alembic upgrade head && python -m uvicorn app.main:app"]
