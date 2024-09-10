@@ -14,8 +14,8 @@ COPY alembic.ini ./alembic.ini
 COPY app ./app
 
 RUN pip install -r requirements.txt
-RUN alembic revision --autogenerate
-RUN alembic upgrade head
+RUN python -m alembic revision --autogenerate
+RUN python -m alembic upgrade head
 
 EXPOSE 5000
 
