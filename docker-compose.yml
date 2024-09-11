@@ -19,7 +19,7 @@ services:
     ports:
       - "3001:5432"
     volumes:
-      - restartcrm_pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
@@ -36,4 +36,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  restartcrm_pgdata:
+  pgdata:
