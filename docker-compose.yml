@@ -15,6 +15,7 @@ services:
       POSTGRES_USER: restartcrm
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "3001:5432"
     volumes:
