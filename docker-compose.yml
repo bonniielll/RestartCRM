@@ -14,11 +14,10 @@ services:
       POSTGRES_USER: restartcrm
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
-      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432"
     volumes:
-      - restartcrm_pgdata:/var/lib/postgresql/data/pgdata
+      - restartcrm_pgdata:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
