@@ -13,6 +13,7 @@ services:
     shm_size: 128mb
     environment:
       POSTGRES_USER: restartcrm
+      POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
     ports:
       - "3001:5432"
