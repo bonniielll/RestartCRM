@@ -30,9 +30,9 @@ class NewTrading(Base):
     action_sum: Mapped[int] = mapped_column(server_default=text('0'))
     sum: Mapped[int]
     method: Mapped[str]
-    comment: Mapped[str]
-    payment_invoice: Mapped[str]
-    invoice_data: Mapped[str]
+    comment: Mapped[str] = mapped_column(server_default=text('0'))
+    payment_invoice: Mapped[str] = mapped_column(server_default=text('0'))
+    invoice_data: Mapped[str] = mapped_column(server_default=text('0'))
 
 
 class ComissionTrading(Base):

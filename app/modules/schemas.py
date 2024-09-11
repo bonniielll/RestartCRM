@@ -11,16 +11,16 @@ class SClientAdding(BaseModel):
 class SNewAdding(BaseModel):
     account: str = Field(..., min_length=0, max_length=30, description='Аккаунт')
     client_number: str = Field(..., min_length=0, max_length=50, description='Номер клиента')
-    akb: str = Field(..., min_length=5, max_length=50, description='Название нового АКБ')
+    akb: str = Field(..., min_length=2, max_length=50, description='Название нового АКБ')
     akb_price: int = Field(..., description='Цена за новый АКБ')
     scrap_akb: str = Field(..., min_length=0, max_length=50, description='Старый АКБ')
     scrap_price: int = Field(..., description='Сумма за старый АКБ')
     action_sum: int = Field(..., description='Сумма скидки')
     sum: int = Field(..., description='Сумма продажи')
     method: str = Field(..., min_length=0, max_length=50, description='Способ оплаты')
-    comment: str = Field(..., min_length=0, max_length=50, description='Комментарий')
-    payment_invoice: str = Field(..., min_length=0, max_length=50, description='Оплата по счету')
-    invoice_data: str = Field(..., min_length=0, max_length=150, description='Оплата по счету')
+    comment: str = Field(..., description='Комментарий')
+    payment_invoice: str = Field(..., description='Оплата по счету')
+    invoice_data: str = Field(..., description='Оплата по счету')
 
 
 class SComissionAdding(BaseModel):

@@ -2,7 +2,7 @@
 
 
 {% block script %}
-<script type="text/javascript"language="javascript">
+<script type="text/javascript" language="javascript">
   async function caddFunction(event) {
     event.preventDefault();  // Предотвращаем стандартное действие форм
     
@@ -45,7 +45,7 @@
 
 </script>
 
-<script type="text/javascript"language="javascript">
+<script type="text/javascript" language="javascript">
   async function ntradeaddFunction(event) {
     event.preventDefault();  // Предотвращаем стандартное действие форм
     
@@ -87,8 +87,8 @@
 }
 </script>
 
-<script type="text/javascript"language="javascript">
-  async function comtradeaddFunction(event).addEventListener('submit', async function(event)) {
+<script type="text/javascript" language="javascript">
+  async function comtradeaddFunction(event) {
     event.preventDefault();  // Предотвращаем стандартное действие форм
     
     // Получаем форму и собираем данные из неё
@@ -185,6 +185,7 @@
       <div class="nice-form-group">
           <label>Старый акб</label>
         <select name="scrap_akb">
+          <option>Нет</option>
           <option>35-44</option>
           <option>45-54</option>
           <option>55-69</option>
@@ -197,11 +198,11 @@
       </div>
       <div class="nice-form-group">
         <label>Цена за старую АКБ</label>
-        <input type="text" placeholder="цена" value="" name="scrap_price"/>
+        <input type="text" placeholder="цена" value="0" name="scrap_price"/>
       </div>
       <div class="nice-form-group">
         <label>Скидка</label>
-        <input type="text" placeholder="сумма (не учитывая старую акб)" value="" name="action_sum"/>
+        <input type="text" placeholder="сумма (не учитывая старую акб)" value="0" name="action_sum"/>
       </div>
       <div class="nice-form-group">
         <label>Сумма продажи</label>
@@ -256,11 +257,11 @@
       </div>
       <div class="nice-form-group">
         <label>Гарантия</label>
-        <input type="text" placeholder="(месяцев)" value="" name="guarantee"/>
+        <input type="number" placeholder="(месяцев)" value="" name="guarantee"/>
       </div>
       <div class="nice-form-group">
         <label>Цена акб</label>
-        <input type="text" placeholder="цена" value="" name="price"/>
+        <input type="number" placeholder="цена" value="" name="price"/>
       </div>
       <div class="nice-form-group">
         <label>Старый/ые АКБ</label>
@@ -268,15 +269,15 @@
       </div>
       <div class="nice-form-group">
         <label>Сумма за старые АКБ</label>
-        <input type="text" placeholder="полная сумма" value="" name="scrap_price"/>
+        <input type="number" placeholder="полная сумма" value="" name="scrap_price"/>
       </div>
       <div class="nice-form-group">
         <label>Скидка</label>
-        <input type="text" placeholder="сумма скидки (не учитывая старые акб)" value="" name="action_sum"/>
+        <input type="number" placeholder="сумма скидки (не учитывая старые акб)" value="" name="action_sum"/>
       </div>
       <div class="nice-form-group">
         <label>Сумма продажи</label>
-        <input type="text" placeholder="итого (если отрицательная, поставить '-' перед суммой)" value="" name="sum"/>
+        <input type="number" placeholder="итого (если отрицательная, поставить '-' перед суммой)" value="" name="sum"/>
       </div>
       <div class="nice-form-group">
         <label>Способ оплаты</label>
