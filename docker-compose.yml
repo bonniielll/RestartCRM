@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
     ports:
-      - "5432"
+      - "3001:5432"
     volumes:
       - restartcrm_pgdata:/var/lib/postgresql/data
     deploy:
