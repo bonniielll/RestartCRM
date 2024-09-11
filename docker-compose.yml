@@ -4,19 +4,19 @@ services:
     container_name: restartcrm
     depends_on:
       - db
+    ports:
+      - "127.0.0.1:3000:80"
     restart: unless-stopped
   db:
     image: postgres:latest
     container_name: restartcrm_db
     environment:
       POSTGRES_USER: restartcrm
-      POSTGRES_PASSWORD: changeme
       POSTGRES_DB: restartcrm
-      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "5432"
+      - "3001:5432"
     volumes:
-      - restartcrm_pgdata:/var/lib/postgresql/data/pgdata
+      - restartcrm_pgdata:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
