@@ -21,7 +21,7 @@ async def clients_base(request: Request):
     clients_data = await ClientsDAO.find_all()
     keys = BaseModels.Clients.__table__.columns.keys()
     data = list()
-    column_names = ['Айди', 'Номер телефона', 'ФИО', 'Комментарий', 
+    column_names = ['Номер записи', 'Номер телефона', 'ФИО', 'Комментарий',
                     'Количество взаимодействий', 'Сумма прибыли', 'Сумма выплат', 
                     'Первое взаимодействие', 'Последнее взаимодействие',]
     for n, i in enumerate(clients_data):
@@ -43,7 +43,7 @@ async def new_trading(request: Request):
     trades_data = await NewTradingDAO.find_all()
     keys = BaseModels.NewTrading.__table__.columns.keys()
     data = list()
-    column_names = ['Номер', 'Магазин', 'Номер клиента', 'АКБ', 'Цена АКБ', 'Старый акб',
+    column_names = ['Номер записи', 'Магазин', 'Номер клиента', 'АКБ', 'Цена АКБ', 'Старый акб',
                     'Цена старого', 'Скидка', 'Сумма', 'Способ оплаты',
                     'Комментарий', 'По счету', 'Данные счета'
                     , 'Дата создания', 'Дата обновления'] 
@@ -66,8 +66,8 @@ async def comission_trading(request: Request):
     comission_data = await ComissionTradingDAO.find_all()
     keys = BaseModels.ComissionTrading.__table__.columns.keys()
     data = list()
-    column_names = ['Айди', 'АКБ(название,код)', 'Гарантия(Мес)', 'Цена', 'Скидка',
-                     'Сумма', 'Метод оплаты', 'Клиент(номер)', 'Дата создания', 'Дата обновления']
+    column_names = ['Номер записи', 'Магазин', 'АКБ(название,код)', 'Гарантия(Мес)', 'Цена', 'Старый АКБ', 'Сумма за старый',
+                    'Скидка', 'Сумма', 'Метод оплаты', 'Клиент(номер)', 'Комментарий', 'Дата создания', 'Дата обновления']
     for n, i in enumerate(comission_data):
         columns = list()
         for row in keys:
@@ -87,8 +87,9 @@ async def scrap_trading(request: Request):
     scrap_data = await ScrapDAO.find_all()
     keys = BaseModels.ScrapTrading.__table__.columns.keys()
     data = list()
-    column_names = ['Айди', 'Клиент(номер телефона)', 'Объём АКБ', 'Сумма выплаты', 'Способ оплаты', 
-                    'Комментарий', 'Данные для мандарина', 'Ссылка на фото паспорта', 'Дата создания', 'Дата обновления']
+    column_names = ['Номер записи', 'Магазин', 'Клиент(номер телефона)', 'Объём АКБ', 'Кол-во/Вес', 'Цена',
+                    'Сумма выплаты', 'Способ оплаты', 'Комментарий', 'Данные для мандарина',
+                    'Ссылка на фото паспорта', 'Дата создания', 'Дата обновления']
     for n, i in enumerate(scrap_data):
         columns = list()
         for row in keys:
@@ -108,8 +109,8 @@ async def expertise(request: Request):
     expertise_data = await ExpertiseDAO.find_all()
     keys = BaseModels.Expertise.__table__.columns.keys()
     data = list()
-    column_names = ['Айди', 'Название акб', 'Клиент(номер)', 'Когда обнаружили брак', 'Где документы', 'Где акб', 
-                    'Комментарий', 'Подменный АКБ', 'Кто принял(имя)', 'Где приняли(точка)', 'Дата создания', 'Дата обновления']
+    column_names = ['Номер записи', 'Магазин', 'Название акб', 'Клиент(номер)', 'ФИО клиента', 'Когда обнаружили брак', 'Где документы', 'Где акб',
+                    'Комментарий', 'Подменный АКБ', 'Кто принял(имя)', 'Дата создания', 'Дата обновления']
     for n, i in enumerate(expertise_data):
         columns = list()
         for row in keys:

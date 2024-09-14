@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding
-from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO
+from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO, ScrapDAO, ExpertiseDAO
 from typing import Annotated
 from app.users.dependencies import get_current_user
 import os
@@ -48,3 +48,30 @@ async def adding_comission_trades(trade_data: SComissionAdding) -> dict:
     trade_dict = trade_data.dict()
     await ComissionTradingDAO.add(**trade_dict)
     return {'message': 'Продажа РАБ Б/У добавлена!'}
+
+
+@router.post('/scraptradeadd')
+async def adding_scrap_trades(trade_data: SScrapAdding) -> dict:
+    trade_dict = trade_data.dict()
+    await ScrapDAO.add(**trade_dict)
+    return {'message': 'Запись лома добавлена!'}
+
+
+@router.post('/expertiseadd')
+async def adding_expertise(trade_data: SExperiseAdding) -> dict:
+    trade_dict = trade_data.dict()
+    print(trade_dict)
+    if len(trade_dict['client']) > 2:
+        user = await ClientsDAO.find_one_or_none(phone_number=trade_dict['client'])
+        if user:
+            interactions = user.count_interactions = user.count_interactions + 1
+            await ClientsDAO.update({'phone_number': trade_dict['client']},
+                                   **{'count_interactions': interactions})
+        else:
+            client_data = {'phone_number': trade_dict['client'],
+                           'names': trade_dict['client_names'],
+                           'comment': 'Из добавления экспертизы',
+                           'count_interactions': 1}
+            await ClientsDAO.add(**client_data)
+    await ExpertiseDAO.add(**trade_dict)
+    return {'message': 'Запись экспертизы добавлена!'}

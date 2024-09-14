@@ -128,6 +128,90 @@
     }
 }
 </script>
+
+<script type="text/javascript" language="javascript">
+  async function scraptradeaddFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('scraptrading-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+
+    try {
+        const response = await fetch('/scraptradeadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Успешно!')
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
+    }
+}
+</script>
+
+<script type="text/javascript" language="javascript">
+  async function expertiseaddFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('addexpertise-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+
+    try {
+        const response = await fetch('/expertiseadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Успешно!')
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
+    }
+}
+</script>
 {% endblock %}
 
 {% block content %}
@@ -156,6 +240,7 @@
     </div>
   <div class="flap"></div>
 </div>
+
 <div class="container">
   <div class="content">
     <h1>Продажа новой АКБ (или доп. товар)</h1>
@@ -257,7 +342,7 @@
       </div>
       <div class="nice-form-group">
         <label>Гарантия</label>
-        <input type="number" placeholder="(месяцев)" value="" name="guarantee"/>
+        <input type="number" placeholder="(месяцев)" value="1" name="guarantee"/>
       </div>
       <div class="nice-form-group">
         <label>Цена акб</label>
@@ -265,15 +350,15 @@
       </div>
       <div class="nice-form-group">
         <label>Старый/ые АКБ</label>
-        <input type="text" placeholder="пример записи: '60-1 70-3' (60 объём - 1 кол-во)" value="" name="scrap_akb"/>
+        <input type="text" placeholder="пример записи: '60-1 70-3' (60 объём - 1 кол-во)" value="нет" name="scrap_akb"/>
       </div>
       <div class="nice-form-group">
         <label>Сумма за старые АКБ</label>
-        <input type="number" placeholder="полная сумма" value="" name="scrap_price"/>
+        <input type="number" placeholder="полная сумма" value="0" name="scrap_price"/>
       </div>
       <div class="nice-form-group">
         <label>Скидка</label>
-        <input type="number" placeholder="сумма скидки (не учитывая старые акб)" value="" name="action_sum"/>
+        <input type="number" placeholder="сумма скидки (не учитывая старые акб)" value="0" name="action_sum"/>
       </div>
       <div class="nice-form-group">
         <label>Сумма продажи</label>
@@ -294,11 +379,161 @@
       </div>
       <div class="nice-form-group">
         <label>Комментарий к продаже</label>
-        <input type="text" placeholder="Комментарий" value="" name="comment"/>
+        <input type="text" placeholder="Комментарий" value="нет" name="comment"/>
       </div>
       <button type="submit" id="reg-button" class="submit" onclick="comtradeaddFunction(event)">Добавить продажу комиссионного</button>
     </form>
   </div>
 </div>
 
+<div class="container">
+  <div class="content">
+    <h1>Принятие лома</h1>
+      <label>Добавить запись о принятии</label>
+    <div class="nice-form-group">
+      <form id="scraptrading-form">
+        <div class="nice-form-group">
+        <label>Магазин</label>
+        <select name="account">
+          <option>Авторемонтная</option>
+          <option>Берёзка</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Номер клиента</label>
+        <input type="tel" placeholder="Номер в формате +71234567890" name="client"/>
+      </div>
+        <div class="nice-form-group">
+          <label>Объем/тип акб</label>
+        <select name="ah_akb">
+          <option>35-44</option>
+          <option>45-54</option>
+          <option>55-69</option>
+          <option>70-89</option>
+          <option>90-130</option>
+          <option>132-180</option>
+          <option>190-220</option>
+          <option>225-230</option>
+          <option>П.П (кг)</option>
+          <option>МЕЛКИЙ ГЕЛЬ (кг)</option>
+          <option>БОЛЬШОЙ ГЕЛЬ (кг)</option>
+          <option>Мото (кг)</option>
+        </select>
+      </div>
+        <div class="nice-form-group">
+        <label>Количество/Вес(кг)</label>
+        <input type="number" placeholder="кол-во/вес" value="1" name="count"/>
+      </div>
+        <div class="nice-form-group">
+        <label>Цена (шт/кг)</label>
+        <input type="number" placeholder="цена" name="price"/>
+      </div>
+      </div>
+        <div class="nice-form-group">
+        <label>Сумма</label>
+        <input type="number" placeholder="сумма" name="sum"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Способ выплаты</label>
+        <select name="method_pay">
+          <option>наличные</option>
+          <option>мандарин</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Комментарий</label>
+        <input type="text" placeholder="комментарий" name="comment"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Данные мандарина</label>
+        <input type="text" placeholder="комментарий" name="mandarin_data"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Ссылка на фото пасспорта</label>
+        <input type="text" placeholder="ПКМ по фото в чате тг > 'Копировать ссылку на сообщение'" name="passport_photo"/>
+      </div>
+      <button type="submit" id="reg-button" class="submit" onclick="scraptradeaddFunction(event)">Принять лом</button>
+    </form>
+    </div>
+    </div>
+
+<div class="container">
+  <div class="content">
+    <h1>Экспертиза</h1>
+      <label>добавление АКБ на экспертизу</label>
+    <div class="nice-form-group">
+      <form id="addexpertise-form">
+        <div class="nice-form-group">
+        <label>Магазин</label>
+        <select name="account">
+          <option>Берёзка</option>
+          <option>Авторемонтная</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+        </select></div>
+      <div class="nice-form-group">
+        <label>Название акб</label>
+        <input type="text" placeholder="название, код" name="akb_name"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Номер клиента</label>
+        <input type="tel" placeholder="Номер в формате +71234567890" value="+7" name="client"/>
+      </div>
+        <div class="nice-form-group">
+        <label>ФИО Клиента</label>
+        <input type="text" placeholder="ФИО" value="" name="client_names"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Когда обнаружили брак</label>
+        <select name="when_broken">
+          <option>После продажи клиенту</option>
+          <option>До продажи клиенту</option>
+        </select>
+      <div class="nice-form-group">
+        <label>Документы на АКБ</label>
+        <select name="akb_docs">
+          <option>Берёзка</option>
+          <option>Авторемонтная</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+          <option>Нету</option>
+        </select></div>
+      <div class="nice-form-group">
+        <label>Где находится АКБ</label>
+        <select name="akb_place">
+          <option>Берёзка</option>
+          <option>Авторемонтная</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+          <option>ЭКСПЕРТИЗА</option>
+        </select></div>
+      <div class="nice-form-group">
+        <label>Комментарий на момент принятия АКБ</label>
+        <input type="text" placeholder="комментарий" name="comment_on_start"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Подменный АКБ</label>
+        <input type="text" placeholder="название, код" name="akb_on_switch"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Имя Менеджера</label>
+        <input type="text" placeholder="кто принял на экспертизу" name="manager"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Ссылка для отслеживания</label>
+        <input type="text" placeholder="не заполнять" name="tracker_url"/>
+      </div>
+      <button type="submit" id="reg-button" class="submit" onclick="expertiseaddFunction(event)">Добавить экспертизу</button>
+    </form>
+    </div>
+
+    </div>
+  <div class="flap"></div>
+</div>
 {% endblock %}

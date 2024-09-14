@@ -39,7 +39,7 @@ class ComissionTrading(Base):
     id: Mapped[int_pk]
     account: Mapped[str]
     akb_name: Mapped[str]
-    guarantee: Mapped[int] = mapped_column(server_default=text('1'))
+    guarantee: Mapped[int]
     price: Mapped[float]
     scrap_akb: Mapped[str] = mapped_column(server_default=text('0'))
     scrap_price: Mapped[float] = mapped_column(server_default=text('0'))
@@ -53,9 +53,11 @@ class ComissionTrading(Base):
 class ScrapTrading(Base):
     id: Mapped[int_pk]
     account: Mapped[str]
-    client: Mapped[str]
+    client: Mapped[str] = mapped_column(server_default=text('0'))
     ah_akb: Mapped[str]
-    sum: Mapped[int]
+    count: Mapped[float]
+    price: Mapped[float]
+    sum: Mapped[float]
     method_pay: Mapped[str]
     comment: Mapped[str]
     mandarin_data: Mapped[str]
@@ -67,13 +69,13 @@ class Expertise(Base):
     account: Mapped[str]
     akb_name: Mapped[str]
     client: Mapped[str]
+    client_names: Mapped[str] = mapped_column(server_default=text('0'))
     when_broken: Mapped[str]
     akb_docs: Mapped[str]
     akb_place: Mapped[str]
     comment_on_start: Mapped[str]
     akb_on_switch: Mapped[str]
     manager: Mapped[str]
-    market: Mapped[str]
     tracker_url: Mapped[str]
         
 
