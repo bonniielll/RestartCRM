@@ -212,9 +212,92 @@
     }
 }
 </script>
+
+<script type="text/javascript" language="javascript">
+  async function dailyaddFunction(event) {
+    event.preventDefault();  // Предотвращаем стандартное действие форм
+
+    // Получаем форму и собираем данные из неё
+    const form = document.getElementById('dailycash-form');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+
+    try {
+        const response = await fetch('/dailyadd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Проверяем успешность ответа
+        if (!response.ok) {
+            // Получаем данные об ошибке
+            const errorData = await response.json();
+            displayErrors(errorData);  // Отображаем ошибки
+            return;  // Прерываем выполнение функции
+        }
+
+        const result = await response.json();
+
+        if (result.message) {  // Проверяем наличие сообщения о успешной регистрации
+            window.location.href = '/new';  // Перенаправляем пользователя на страницу логина
+            alert(result.message || 'Успешно!')
+        } else {
+            alert(result.message || 'Неизвестная ошибка');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при добавлении продажи. Пожалуйста, попробуйте снова.');
+    }
+}
+</script>
+
 {% endblock %}
 
 {% block content %}
+
+<div class="container">
+  <div class="content">
+    <h1>Остаток в кассе</h1>
+      <label>записать остаток</label>
+    <div class="nice-form-group">
+      <form id="dailycash-form">
+      <div class="nice-form-group">
+        <label>Магазин</label>
+        <select name="magazine">
+          <option>Авторемонтная</option>
+          <option>Берёзка</option>
+          <option>Юркина</option>
+          <option>Просторная</option>
+          <option>Пролетарская</option>
+        </select>
+      </div>
+      <div class="nice-form-group">
+        <label>Имя менеджера</label>
+        <input type="text" placeholder="Имя" name="manager"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Остаток</label>
+        <input type="number" placeholder="сумма в кассе" name="cash"/>
+      </div>
+      <div class="nice-form-group">
+        <label>Время</label>
+        <select name="daytime">
+          <option>Утро</option>
+          <option>Вечер</option>
+        </select>
+      </div>
+      <button type="submit" id="reg-button" class="submit" onclick="dailyaddFunction(event)">Записать остаток</button>
+    </form>
+    </div>
+
+    </div>
+  <div class="flap"></div>
+</div>
+
 <div class="container">
   <div class="content">
     <h1>Добавление Клиента</h1>

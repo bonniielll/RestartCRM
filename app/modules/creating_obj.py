@@ -3,8 +3,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding
-from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO, ScrapDAO, ExpertiseDAO
+from app.modules.schemas import SClientAdding, SNewAdding, SComissionAdding, SScrapAdding, SExperiseAdding, SServiceAdding, SDailyAdding
+from app.modules.dao import ClientsDAO, NewTradingDAO, ComissionTradingDAO, ScrapDAO, ExpertiseDAO, DailyDAO
 from typing import Annotated
 from app.users.dependencies import get_current_user
 import os
@@ -23,6 +23,13 @@ async def adding_data(request: Request):
     return templates.TemplateResponse(request=request, name='addnew.html')
 
 
+@router.post('/dailyadd')
+async def adding_daily_cash(trade_data: SDailyAdding) -> dict:
+    trade_dict = trade_data.dict()
+    await DailyDAO.add(**trade_dict)
+    return {'message': 'Запись остатка добавлена!'}
+
+
 @router.post('/clientadd')
 async def adding_clients(client: SClientAdding) -> dict:
     user = await ClientsDAO.find_one_or_none(phone_number=client.phone_number)
@@ -39,6 +46,8 @@ async def adding_clients(client: SClientAdding) -> dict:
 @router.post('/tradeadd')
 async def adding_new_trades(trade_data: SNewAdding) -> dict:
     trade_dict = trade_data.dict()
+    if trade_dict['client_number'] != '':
+        pass
     await NewTradingDAO.add(**trade_dict)
     return {'message': 'Продажа нового акб добавлена!'}
 
@@ -46,6 +55,8 @@ async def adding_new_trades(trade_data: SNewAdding) -> dict:
 @router.post('/comtradeadd')
 async def adding_comission_trades(trade_data: SComissionAdding) -> dict:
     trade_dict = trade_data.dict()
+    if trade_dict['client'] != '':
+        pass
     await ComissionTradingDAO.add(**trade_dict)
     return {'message': 'Продажа РАБ Б/У добавлена!'}
 
@@ -53,6 +64,8 @@ async def adding_comission_trades(trade_data: SComissionAdding) -> dict:
 @router.post('/scraptradeadd')
 async def adding_scrap_trades(trade_data: SScrapAdding) -> dict:
     trade_dict = trade_data.dict()
+    if trade_dict['client'] != '':
+        pass
     await ScrapDAO.add(**trade_dict)
     return {'message': 'Запись лома добавлена!'}
 

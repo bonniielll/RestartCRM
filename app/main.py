@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from app.users.router import router as router_users
 from app.modules.router import router as router_modules
 from app.modules.creating_obj import router as router_objects
+from app.modules.reporting_router import router as router_reports
 import os
 
 
@@ -27,3 +28,4 @@ async def home_page(request: Request):
 app.include_router(router_users)
 app.include_router(router_modules)
 app.include_router(router_objects)
+app.include_router(router_reports)

@@ -72,3 +72,10 @@ class SServiceAdding(BaseModel):
     deposit_for_switch_sum: str = Field(..., min_length=0, max_length=50, description='Залог за подменный АКБ')
     comment_after: str = Field(..., min_length=0, max_length=50, description='Коментарий после передачи АКБ клиенту')
     pay_method: str = Field(..., min_length=5, max_length=50, description='Способ оплаты')
+
+
+class SDailyAdding(BaseModel):
+    magazine: str = Field(..., description='Магазин')
+    manager: str = Field(..., description='Менеджер')
+    cash: float = Field(..., description='Остаток в кассе')
+    daytime: str = Field(..., description='Утро/Вечер')

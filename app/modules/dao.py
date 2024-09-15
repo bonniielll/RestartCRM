@@ -1,5 +1,5 @@
 from app.dao.base import BaseDao
-from app.modules.models import Clients, NewTrading, ComissionTrading, ScrapTrading, Expertise
+from app.modules.models import Clients, DailyCash, NewTrading, ComissionTrading, ScrapTrading, Expertise, ScrapRecording
 
 
 class ClientsDAO(BaseDao):
@@ -23,4 +23,8 @@ class ExpertiseDAO(BaseDao):
 
 
 class ServiceDAO(BaseDao):
-    model = Expertise
+    model = ScrapRecording
+
+
+class DailyDAO(BaseDao):
+    model = DailyCash

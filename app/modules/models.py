@@ -102,3 +102,10 @@ class ScrapRecording(Base):
     comment: Mapped[str]
     where_move: Mapped[str]
 
+
+class DailyCash(Base):
+    id: Mapped[int_pk]
+    magazine: Mapped[str]
+    manager: Mapped[str]
+    cash: Mapped[float]
+    daytime: Mapped[str]
