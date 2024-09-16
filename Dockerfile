@@ -1,13 +1,6 @@
 FROM python:3.10-slim as base
 
 ENV PYTHONUNBUFFERED=1
-ENV POSTGRES_USER=restartcrm
-ENV POSTGRES_PASSWORD=changeme
-ENV POSTGRES_DB=restartcrm
-ENV POSTGRES_HOST=db
-ENV POSTGRES_PORT=3001
-ENV SECRET_KEY=changeme
-ENV ALGORITHM=HS256
 
 COPY docker-entrypoint.sh alembic.ini requirements.txt ./
 COPY app ./app
