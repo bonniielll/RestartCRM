@@ -19,3 +19,8 @@ templates = Jinja2Templates(directory=templates_abs_file_path)
 @router.get('')
 async def reporting_page(request: Request):
     return templates.TemplateResponse(request=request, name='reporting.html')
+
+
+@router.get('/report')
+async def getting_report(request: Request):
+    return templates. TemplateResponse(request=request, name='reporttables.html')
